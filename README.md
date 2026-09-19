@@ -19,8 +19,7 @@ gh api repos/keith0591/safestash-dibrugarh/pages -X POST -f 'source[branch]=main
 | Where | Currently | Replace with |
 |---|---|---|
 | `<link rel="canonical">`, `og:url`, `og:image`, `twitter:image`, JSON-LD `url` / `image` / `logo` / `@id` (8 spots) | `https://REPLACE-WITH-YOUR-DOMAIN.com/` | Your real domain once purchased. Until then the Open Graph image won't resolve, so link previews stay blank — see note below. |
-| JSON-LD `geo` latitude/longitude | `27.4527, 94.9995` — the Lahoal village centroid from OpenStreetMap, not the property | Exact coordinates: open Google Maps, long-press your building, copy the numbers it shows |
-| Map `<iframe src>` | `?q=SafeStash+Dibrugarh&output=embed`, which resolves by name against your live Google Business Profile | Optional. For an exact pin: Google Maps → your listing → **Share → Embed a map** → copy the `src="…"` value |
+| Map `<iframe src>` | The resolved Google embed for your live Business Profile (Knowledge Graph id `/g/11zxmqrhc4`) | Nothing — this already points at your real listing. Swap only if you move premises. |
 
 **Open Graph images need an absolute URL**, which is why those tags still point at the placeholder domain. If you enable Pages before buying a domain and want link previews working in the meantime, replace `https://REPLACE-WITH-YOUR-DOMAIN.com/` with `https://keith0591.github.io/safestash-dibrugarh/` everywhere:
 
@@ -41,6 +40,7 @@ sed -i 's/916003632998/91XXXXXXXXXX/g; s/+91 60036 32998/+91 XXXXX XXXXX/g' inde
 - **Prices** live in the `<tbody>` of the pricing table *and* in the `hasOfferCatalog` JSON-LD block in `<head>` — update both so search results stay accurate.
 - **Brand colours** are CSS custom properties at the top of the `<style>` block (`--navy`, `--orange`, `--cream`).
 - **Opening hours** appear in the Location section and in the JSON-LD `openingHoursSpecification`.
+- **Coordinates** in the JSON-LD `geo` block (27.4557435, 94.9903042) were read out of your live Google Business Profile, so they match the pin Google already has.
 - **Images:** `assets/storefront.jpg` (1100×1100) is used both as the hero background, behind a navy overlay, and as the photo in the Location section. `assets/og-image.jpg` (1200×630) is the social-share card — it is never shown on the page itself, only by WhatsApp, Facebook and X when someone pastes the link. Both are generated from the original `SafeStashCoverPhoto.PNG`.
 
 ## What's included

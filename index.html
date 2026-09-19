@@ -63,8 +63,8 @@
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": "27.4527",
-    "longitude": "94.9995"
+    "latitude": "27.4557435",
+    "longitude": "94.9903042"
   },
   "areaServed": { "@type": "City", "name": "Dibrugarh" },
   "openingHoursSpecification": [{
@@ -262,7 +262,7 @@ tbody tr:nth-child(even){background:rgba(26,46,74,.025)}
 .storefront img{display:block;width:100%;height:clamp(220px,34vw,400px);object-fit:cover;object-position:center 60%}
 .storefront figcaption{background:var(--paper);padding:14px 20px;font-size:.92rem;color:var(--muted);
   border-top:1px solid var(--line)}
-.loc-grid{display:grid;grid-template-columns:minmax(260px,.85fr) 1.15fr;gap:24px;margin-top:24px;align-items:start}
+.loc-grid{display:grid;grid-template-columns:minmax(260px,.85fr) 1.15fr;gap:24px;margin-top:24px;align-items:stretch}
 @media (max-width:820px){.loc-grid{grid-template-columns:1fr}}
 .addr{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:26px;box-shadow:var(--shadow)}
 .addr address{font-style:normal;font-size:1.06rem;line-height:1.75;color:var(--navy);font-weight:600}
@@ -609,10 +609,11 @@ tbody tr:nth-child(even){background:rgba(26,46,74,.025)}
         </div>
 
         <div class="map">
-          <!-- Resolves to the live Google Business Profile for SafeStash Dibrugarh.
-               For an exact pin, replace with: Google Maps → your listing → Share → Embed a map → copy the src="…" -->
+          <!-- Resolves to the live Google Business Profile for SafeStash Dibrugarh
+               (Knowledge Graph id /g/11zxmqrhc4). This is the post-redirect embed URL,
+               so the browser is never served the 301 that carries X-Frame-Options. -->
           <iframe
-            src="https://www.google.com/maps?q=SafeStash+Dibrugarh&output=embed"
+            src="https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1sSafeStash+Dibrugarh"
             title="Map showing SafeStash Dibrugarh at Rajakhat, Lahoal, Dibrugarh, Assam"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"

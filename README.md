@@ -69,6 +69,17 @@ WhatsApp links use the `wa.me` format, which opens the WhatsApp app directly on 
 - **Coordinates** in the JSON-LD `geo` block (27.4557435, 94.9903042) were read out of the live Google Business Profile, so they match the pin Google already holds. The map `<iframe>` resolves against that same listing (Knowledge Graph id `/g/11zxmqrhc4`) — no need to touch it unless you move premises.
 - **Images:** `assets/storefront.jpg` (1100×1100) is the hero background, behind a navy overlay, and the photo in the Location section. `assets/og-image.jpg` (1200×630) is the social-share card — never shown on the page, only by WhatsApp, Facebook and X when someone pastes the link. Both were generated from the original `SafeStashCoverPhoto.PNG`; regenerate them with Pillow if you reshoot.
 
+## SEO notes
+
+On-page work is done: one `<h1>` and a clean `h2`/`h3` hierarchy, a 58-character title and a 149-character description (both inside what Google displays), `SelfStorage` JSON-LD carrying the real coordinates and linked to the Business Profile via `sameAs`, `robots.txt`, `sitemap.xml`, descriptive image `alt` text, and a preloaded hero so the largest element paints early. First load is ~156 KB.
+
+Two things matter more than anything in this repo:
+
+1. **The Google Business Profile is the ranking engine for local search**, not the website. Put `https://safestashdibrugarh.in` in its website field, keep hours accurate, post photos, and ask early customers for reviews. A handful of genuine reviews will outrank any on-page tuning.
+2. **Reviews and ratings are deliberately absent from the structured data.** `aggregateRating` markup without real reviews behind it is a manual-action risk. Once you have genuine Google reviews, they surface through the Business Profile anyway.
+
+Worth doing later, once there's traffic to justify it: split the page into separate URLs for the distinct searches people actually make — student luggage storage, two-wheeler storage, shop inventory storage. A single page can only rank for so many phrases at once. `FAQPage` markup was considered and skipped: Google restricted FAQ rich results to government and health sites in 2023, so it would add markup for no gain.
+
 ## What's included
 
 - Semantic HTML (`<header>`, `<main>`, `<section>`, `<footer>`), mobile-first responsive layout, verified with no horizontal overflow down to 345px wide

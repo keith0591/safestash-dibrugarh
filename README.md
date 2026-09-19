@@ -1,40 +1,54 @@
 # SafeStash Dibrugarh — website
 
-A single self-contained `index.html` (inline CSS, one line of vanilla JS) for **SafeStash Dibrugarh**, a secure self-storage business in Lahowal, Dibrugarh, Assam. No build step, no frameworks, no npm — open the file in a browser to preview it locally.
+A single self-contained `index.html` (inline CSS, one line of vanilla JS) for **SafeStash Dibrugarh**, a secure self-storage business at Rajakhat, Lahoal, Dibrugarh, Assam. No build step, no frameworks, no npm — open the file in a browser to preview it locally. The only assets are two JPEGs in `assets/`.
+
+Live repo: <https://github.com/keith0591/safestash-dibrugarh>
 
 ## Enabling GitHub Pages
 
-Push this repo to GitHub, then go to **Settings → Pages**, set **Source** to *Deploy from a branch*, pick the **`main`** branch with the **`/ (root)`** folder, and click **Save**. GitHub builds the site in a minute or two and publishes it at `https://<your-username>.github.io/<repo-name>/`. Because `index.html` sits at the repository root and pulls in no build artifacts, nothing else needs configuring. When you buy a domain, add it under **Settings → Pages → Custom domain** (which commits a `CNAME` file for you) and point a DNS `A`/`CNAME` record at GitHub Pages.
+Go to **Settings → Pages**, set **Source** to *Deploy from a branch*, pick the **`main`** branch with the **`/ (root)`** folder, and click **Save**. GitHub builds the site in a minute or two and publishes it at `https://keith0591.github.io/safestash-dibrugarh/`. Because `index.html` sits at the repository root and pulls in no build artifacts, nothing else needs configuring. When you buy a domain, add it under **Settings → Pages → Custom domain** (which commits a `CNAME` file for you) and point a DNS `A`/`CNAME` record at GitHub Pages.
 
-## Placeholders to replace before going live
-
-| Where | Placeholder | Replace with |
-|---|---|---|
-| Every WhatsApp link (`wa.me/91XXXXXXXXXX`, 5 occurrences) | `91XXXXXXXXXX` | Your number in country-code + number form, no `+` or spaces — e.g. `919876543210` |
-| Map `<iframe src>` in the Location section | A generic "Lahowal, Dibrugarh" map | The embed URL from Google Maps → your Business Profile → **Share → Embed a map** → copy the `src="…"` value |
-| `<link rel="canonical">`, `og:url`, `og:image`, `twitter:image`, and the JSON-LD `url` / `image` / `@id` | `https://REPLACE-WITH-YOUR-DOMAIN.com/` | Your real domain once purchased |
-| JSON-LD `telephone` | `+91-XXXXXXXXXX` | Your business phone number |
-| JSON-LD `geo` latitude/longitude | Approximate Lahowal coordinates | Exact coordinates from your Google Business Profile |
-
-Swapping the WhatsApp number in one shot:
+Or enable it from the command line:
 
 ```bash
-sed -i 's/91XXXXXXXXXX/919876543210/g' index.html
+gh api repos/keith0591/safestash-dibrugarh/pages -X POST -f 'source[branch]=main' -f 'source[path]=/'
 ```
 
-Also add a real **`og-image.jpg`** (1200×630, a photo of the facility with the wordmark) to the repo root — it's what shows up as the preview card when the link is shared on WhatsApp or Facebook.
+## Still to replace
+
+| Where | Currently | Replace with |
+|---|---|---|
+| `<link rel="canonical">`, `og:url`, `og:image`, `twitter:image`, JSON-LD `url` / `image` / `logo` / `@id` (8 spots) | `https://REPLACE-WITH-YOUR-DOMAIN.com/` | Your real domain once purchased. Until then the Open Graph image won't resolve, so link previews stay blank — see note below. |
+| JSON-LD `geo` latitude/longitude | `27.4527, 94.9995` — the Lahoal village centroid from OpenStreetMap, not the property | Exact coordinates: open Google Maps, long-press your building, copy the numbers it shows |
+| Map `<iframe src>` | `?q=SafeStash+Dibrugarh&output=embed`, which resolves by name against your live Google Business Profile | Optional. For an exact pin: Google Maps → your listing → **Share → Embed a map** → copy the `src="…"` value |
+
+**Open Graph images need an absolute URL**, which is why those tags still point at the placeholder domain. If you enable Pages before buying a domain and want link previews working in the meantime, replace `https://REPLACE-WITH-YOUR-DOMAIN.com/` with `https://keith0591.github.io/safestash-dibrugarh/` everywhere:
+
+```bash
+sed -i 's|https://REPLACE-WITH-YOUR-DOMAIN.com/|https://keith0591.github.io/safestash-dibrugarh/|g' index.html
+```
+
+## Contact details, if they ever change
+
+The phone number appears in 12 places — six `wa.me/916003632998` links, six `tel:+916003632998` links — plus the JSON-LD `telephone` field and the visible text "+91 60036 32998". To change it:
+
+```bash
+sed -i 's/916003632998/91XXXXXXXXXX/g; s/+91 60036 32998/+91 XXXXX XXXXX/g' index.html
+```
 
 ## Editing content
 
 - **Prices** live in the `<tbody>` of the pricing table *and* in the `hasOfferCatalog` JSON-LD block in `<head>` — update both so search results stay accurate.
 - **Brand colours** are CSS custom properties at the top of the `<style>` block (`--navy`, `--orange`, `--cream`).
 - **Opening hours** appear in the Location section and in the JSON-LD `openingHoursSpecification`.
+- **Images:** `assets/storefront.jpg` (1100×1100) is used both as the hero background, behind a navy overlay, and as the photo in the Location section. `assets/og-image.jpg` (1200×630) is the social-share card — it is never shown on the page itself, only by WhatsApp, Facebook and X when someone pastes the link. Both are generated from the original `SafeStashCoverPhoto.PNG`.
 
 ## What's included
 
 - Semantic HTML (`<header>`, `<main>`, `<section>`, `<footer>`), mobile-first responsive layout
 - `schema.org` **SelfStorage** JSON-LD (a valid LocalBusiness subtype — `StorageFacility` is not a schema.org type) with address, offers and hours
-- Title, meta description, Open Graph and Twitter Card tags targeting "self storage Dibrugarh" / "storage Lahowal Assam"
-- Inline SVG shield-and-padlock logo and an SVG favicon — no image files to load
-- Sticky WhatsApp call-to-action bar on mobile; the pricing table reflows into cards on narrow screens
-- Only one external request: the Playfair Display webfont from Google Fonts (headings fall back to Georgia if it's blocked)
+- Title, meta description, Open Graph and Twitter Card tags targeting "self storage Dibrugarh" / "storage Lahoal Assam" (both the *Lahoal* and *Lahowal* spellings are covered in the keywords)
+- Inline SVG shield-and-padlock logo and a matching SVG favicon — no logo file to load
+- `tel:` and `wa.me` links throughout, so phones open the dialler and the WhatsApp app directly; a sticky Call + WhatsApp bar on mobile
+- Pricing table reflows into cards on narrow screens
+- Two external requests: the Playfair Display webfont from Google Fonts (headings fall back to Georgia if blocked) and nothing else — all images are local
